@@ -84,7 +84,8 @@
         <!-- A first level in the left side menu is needed
              before using action= attribute -->
         <menuitem id="openacademy_menu" name="Open Academy"
-                  parent="main_openacademy_menu"/>
+                  parent="main_openacademy_menu"
+        sequence="1"/>
         <!-- the following menuitem should appear *after*
              its parent openacademy_menu and *after* its
              action course_list_action -->
@@ -195,7 +196,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="oe_clear"></div>
+                                    <div class="oe_clear"> </div>
                                 </div>
                                 <div t-attf-class="oe_kanban_content">
                                     <!-- title -->
@@ -223,6 +224,38 @@
 
         <menuitem id="session_menu" name="Sessions"
                   parent="openacademy_menu"
-                  action="session_list_action"/>
+                  action="session_list_action"
+        />
+
+        <record model="ir.ui.view" id="wizard_form_view">
+            <field name="name">wizard.form</field>
+            <field name="model">openacademy.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Add Attendees">
+                    <group>
+                        <field name="session_ids"/>
+                        <field name="attendee_ids"/>
+                    </group>
+                    <footer>
+                        <button name="subscribe" type="object"
+                                string="Subscribe" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="launch_session_wizard" model="ir.actions.act_window">
+            <field name="name">Add Attendees</field>
+            <field name="res_model">openacademy.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_openacademy_session"/>
+        </record>
+            <menuitem id="session_menu_wizard" name="Wizard"
+                  parent="main_openacademy_menu"
+                  action="launch_session_wizard"
+            sequence="2"/>
 
 </odoo>

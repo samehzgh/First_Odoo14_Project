@@ -3,6 +3,7 @@
 from datetime import timedelta
 from odoo import models, fields, api, exceptions
 
+
 class Course(models.Model):
     _name = 'openacademy.course'
     _description = "OpenAcademy Courses"
@@ -37,6 +38,7 @@ class Course(models.Model):
          'UNIQUE(name)',
          "The course title must be unique"),
     ]
+
 
 class Session(models.Model):
     _name = 'openacademy.session'
